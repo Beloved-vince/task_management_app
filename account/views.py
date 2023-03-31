@@ -26,14 +26,27 @@ def create_user(request):
                 else:
                     messages.success(request, 'Your account has been created')
                     return HttpResponse("Not possible")
-            except ObjectDoesNotExist:
-                messages.error(request, 'Please sign in with Google')
                 return redirect('base.html')
             except Exception as e:
                 messages.error(request, f'try again   : {e}')
-                return HttpResponse(f'sign-up {e}')
+                return HttpResponse(f'{e}')
 
             # any additional processing or redirecting you want to do
         return render(request, 'user.html')
 
     return render(request, 'signup.html')
+
+
+def login_view(request):
+    from django.contrib.auth.models import User
+    from django.contrib.auth import authenticate, login
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user.is_authenticated:
+            return render(request, 'user.html')
+        else:
+            return redirect('sign-up')
+    
+    return render(request, 'login.html')

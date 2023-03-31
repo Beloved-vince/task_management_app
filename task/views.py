@@ -8,12 +8,13 @@ from .serializers import TaskSerializer
 from django.http import HttpResponse
 from account.views import create_user
 
+
 # Create your views here.
 # @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def add_task(request):
     try:
-        user_id = request.user.id
+        # user = authenticate(username)
         # if user_id not in User.objects.all():
         #     return redirect('sign-up')
         if request.method == 'POST':

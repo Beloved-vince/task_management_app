@@ -1,0 +1,82 @@
+{% load static %} {% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task Management System</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+</head>
+<body>
+	<header>
+		<h1>Task Management System</h1>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">My Tasks</a></li>
+				<li><a href="#">Messages</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<div id="sidebar">
+			<h2>Projects</h2>
+			<ul>
+				<li><a href="#">Project A</a></li>
+				<li><a href="#">Project B</a></li>
+				<li><a href="#">Project C</a></li>
+				<li><a href="#">Add Project</a></li>
+			</ul>
+			<h2>Insights</h2>
+			<ul>
+				<li><a href="#">Reporting</a></li>
+				<li><a href="#">Comments</a></li>
+			</ul>
+		</div>
+		<div id="content">
+			<h2>Add Task</h2>
+			<form method="POST">
+				{% csrf_token %}
+				<label for="task-name">Task Name:</label>
+				<input type="text" id="task-name" name="name"><br><br>
+				<label for="task-desc">Task Description:</label>
+				<textarea id="task-desc" name="description"></textarea><br><br>
+				<label for="task-assignee">Assign Task To:</label>
+				<input type="email" id="task-assignee" name="task-assignee"><br><br>
+				<label for="task-deadline">Deadline:</label>
+				<input type="date" id="task-deadline" name="due_date"><br><br>
+				<input type="submit" value="Add Task">
+			</form>
+			<h2>Add Team Member</h2>
+			<form>
+				<label for="member-name">Name:</label>
+				<input type="text" id="member-name" name="member-name"><br><br>
+				<label for="member-email">Email:</label>
+				<input type="email" id="member-email" name="member-email"><br><br>
+				<input type="submit" value="Add Member">
+			</form>
+			<h2>Track Task</h2>
+			<table>
+				<tr>
+					<th>Task Name</th>
+					<th>Assigned To</th>
+					<th>Deadline</th>
+					<th>Completed Date</th>
+				</tr>
+				<tr>
+					<td>Task A</td>
+					<td>John Doe</td>
+					<td>2023-04-15</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Task B</td>
+					<td>Jane Doe</td>
+					<td>2023-04-30</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+	</main>
+</body>
+</html>
+
+{% endblock %}

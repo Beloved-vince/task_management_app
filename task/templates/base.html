@@ -1,0 +1,66 @@
+{% load static %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager App</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Task Manager</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <a class="cta" href="signup.html">Sign Up</a>
+    </nav>
+    <div class="hero">
+      <h1>Get More Done with Task Manager</h1>
+      <p>A simple and powerful tool to help you organize your tasks and achieve your goals.</p>
+      <a class="cta" href="#">Get Started</a>
+    </div>
+  </header>
+  <section class="features">
+    <h2>Features</h2>
+    <div class="feature">
+      <img src="https://via.placeholder.com/150" alt="Feature 1">
+      <h3>Task Lists</h3>
+      <p>Create unlimited lists to organize your tasks by project, priority, or any other criteria.</p>
+    </div>
+    <div class="feature">
+      <img src="https://via.placeholder.com/150" alt="Feature 2">
+      <h3>Reminders</h3>
+      <p>Never forget a task again with customizable reminders and notifications.</p>
+    </div>
+    <div class="feature">
+      <img src="https://via.placeholder.com/150" alt="Feature 3">
+      <h3>Collaboration</h3>
+      <p>Share tasks and lists with your team or clients to stay on the same page.</p>
+    </div>
+  </section>
+  <section class="pricing">
+    <h2>Pricing</h2>
+    <div class="plan">
+      <h3>Free</h3>
+      <p>Basic features and up to 3 lists</p>
+      <a class="cta" href="#">Sign Up</a>
+    </div>
+    <div class="plan">
+      <h3>Premium</h3>
+      <p>All features and unlimited lists</p>
+      <a class="cta" href="#">Sign Up</a>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2023 Task Manager App. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+{% endblock %}

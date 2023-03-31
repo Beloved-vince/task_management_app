@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  
+  /* Header */
+  header {
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  
+  nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+  
+  nav li {
+    margin: 0 1rem;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  /* Main Content */
+  main {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+  }
+  
+  /* Sidebar */
+  #sidebar {
+    width: 200px;
+  }
+  
+  #sidebar h2 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  #sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  #sidebar li {
+    margin: 0;
+    padding: 0;
+  }
+  
+  #sidebar a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  #sidebar a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Content */
+  #content {
+    flex-grow: 1;
+  }
+  
+  /* Add Task Form */
+  form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form textarea,
+  form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+  
+  form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  form input[type="submit"]:hover {
+    background-color: #0062cc;
+  }
+  
+  /* Task Table */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  th {
+    background-color: #f0f0f0;
+  }
+  
+  /* Media Queries */
+  @media only screen and (max-width: 768px) {
+    main {
+      flex-direction: column;
+    }
+    
+    #sidebar {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  

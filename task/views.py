@@ -15,17 +15,18 @@ from account.views import create_user
 def add_task(request):
     try:
         # user = authenticate(username)
-        # if user_id not in User.objects.all():
-        #     return redirect('sign-up')
         if request.method == 'POST':
-            name = request.POST.get('name')
-            description = request.POST.get('description')
-            due_date = request.POST.get('due_date')
-            task = Task.objects.create(name=name, description=description, due_date=due_date)
-            if task.clean_fields():
-                task.save()
-                # serializer = TaskSerializer(task, many=True)
-                return render(request, 'user.html')
+            if request.user.is_authenticated:
+                name = request.POST.get('name')
+                description = request.POST.get('description')
+                due_date = request.POST.get('due_date')
+                task = Task.objects.create(name=name, description=description, due_date=due_date)
+                if task.clean_fields():
+                    task.save()
+                    # serializer = TaskSerializer(task, many=True)
+                    return render(request, 'user.html')
+            else:
+                return redirect('sign-up')
     except Exception as e:
         return HttpResponse(f'Error as {e}')
     return render(request, 'user.html')

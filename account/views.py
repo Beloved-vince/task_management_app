@@ -36,17 +36,19 @@ def create_user(request):
 
     return render(request, 'signup.html')
 
-
 def login_view(request):
     from django.contrib.auth.models import User
-    from django.contrib.auth import authenticate, login
+    from django.contrib.auth import authenticate
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user.is_authenticated:
+        try:
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            user.is_authenticated
             return render(request, 'user.html')
-        else:
-            return redirect('sign-up')
-    
+        except AttributeError:
+            from django.contrib import messages
+            messages.error(request, "Username or password is incorrect")
+            # return redirect('sign-up')
+
     return render(request, 'login.html')

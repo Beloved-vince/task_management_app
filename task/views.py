@@ -37,4 +37,5 @@ def add_task(request):
 
 @api_view(['GET'])
 def home(request):
+    """Render home  page function on call"""
     return render(request, 'base.html')

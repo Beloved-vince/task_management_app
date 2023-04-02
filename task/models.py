@@ -25,7 +25,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField()
-    completed_date = models.DateTimeField(auto_created=False)
+    completed_date = models.DateTimeField(auto_now_add=True)
     
 
 class List(models.Model):

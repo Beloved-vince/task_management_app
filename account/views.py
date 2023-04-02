@@ -51,8 +51,8 @@ def login_view(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
-            user.is_authenticated
-            return render(request, 'user.html')
+            if user.is_authenticated:
+                return redirect('add-task')
         except AttributeError:
             from django.contrib import messages
             messages.error(request, "Username or password is incorrect")

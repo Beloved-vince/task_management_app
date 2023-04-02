@@ -6,8 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import TaskSerializer
 from django.http import HttpResponse
-from account.views import create_user
-
+from django.db import IntegrityError
 
 # Create your views here.
 # @api_view(['GET', 'POST'])
@@ -16,22 +15,28 @@ def add_task(request):
     """Allow Authenticated user to add task.\
         if a non authenticated user want to add task,\
             a redirection will occur to prompt the user to login"""
-    try:
+    from .forms import TaskForm
         # user = authenticate(username)
-        if request.method == 'POST':
-            if request.user.is_authenticated:
-                name = request.POST.get('name')
-                description = request.POST.get('description')
-                due_date = request.POST.get('due_date')
-                task = Task.objects.create(name=name, description=description, due_date=due_date)
-                if task.clean_fields():
-                    task.save()
-                    # serializer = TaskSerializer(task, many=True)
-                    return render(request, 'user.html')
-            else:
-                return redirect('login-in')
-    except Exception as e:
-        return HttpResponse(f'Error as {e}')
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            due_date = form.cleaned_data['due_date']
+            user_id = request.user.id
+            # if request.user.is_authenticated:
+            # name = request.POST.get('name')
+            # description = request.POST.get('description')
+            # due_date = request.POST.get('due_date')
+            # task = Task.objects.create(name=name, description=description, due_date=due_date)
+            try:
+                to_base = Task.objects.create(description=description, due_date=due_date)
+                to_base.save()
+                return  HttpResponse('user.html')
+            except IntegrityError:
+                return HttpResponse(F'USER ID NO {user_id}')
+        # return redirect('login-in')
+    
     return render(request, 'user.html')
 
 

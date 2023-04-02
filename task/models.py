@@ -29,11 +29,13 @@ class Task(models.Model):
     
 
 class List(models.Model):
+    """T"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
 
 class Assignment(models.Model):
+    """"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.PROTECT)
     category_id = models.ForeignKey(Category, on_delete=models.PROTECT)

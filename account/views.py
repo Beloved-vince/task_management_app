@@ -9,6 +9,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 def create_user(request):
+    """This function call allow user to create account and authenticated\
+        -- Also verify if there is a valid form input by during registration\
+        -- Check if the user gmail exist in google dns server before ssaving to the database\
+        -- Redirect to the user page where user can add task and subsequent process.
+    """
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():

@@ -7,6 +7,13 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
 
 class Task(models.Model):
+    """Task parameters
+    Args:
+        user: user creating task id
+        name: task name maximum length 50
+        descripption: task description
+        status: task status return true if task is completed
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()

@@ -42,6 +42,8 @@ def create_user(request):
     return render(request, 'signup.html')
 
 def login_view(request):
+    """Login view check if input data is authenticated,\
+        allow login if true else do nothing"""
     from django.contrib.auth.models import User
     from django.contrib.auth import authenticate
     if request.method == 'POST':

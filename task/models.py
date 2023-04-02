@@ -13,6 +13,10 @@ class Task(models.Model):
         name: task name maximum length 50
         descripption: task description
         status: task status return true if task is completed
+        created_at: date of task  created auto now
+        updated_at: date of task  updated auto now
+        due_date: date task should completed (set by the user )
+        completed_date: date task is completed by the assignee(to be added later)
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

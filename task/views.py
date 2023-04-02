@@ -13,6 +13,9 @@ from account.views import create_user
 # @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def add_task(request):
+    """Allow Authenticated user to add task.\
+        if a non authenticated user want to add task,\
+            a redirection will occur to prompt the user to login"""
     try:
         # user = authenticate(username)
         if request.method == 'POST':
@@ -26,7 +29,7 @@ def add_task(request):
                     # serializer = TaskSerializer(task, many=True)
                     return render(request, 'user.html')
             else:
-                return redirect('sign-up')
+                return redirect('login-in')
     except Exception as e:
         return HttpResponse(f'Error as {e}')
     return render(request, 'user.html')

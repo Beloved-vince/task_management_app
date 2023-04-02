@@ -22,11 +22,6 @@ def add_task(request):
                 description = form.cleaned_data['description']
                 due_date = form.cleaned_data['due_date']
                 user_id = request.user.id
-                # if request.user.is_authenticated:
-                # name = request.POST.get('name')
-                # description = request.POST.get('description')
-                # due_date = request.POST.get('due_date')
-                # task = Task.objects.create(name=name, description=description, due_date=due_date)
                 try:
                     to_base = Task.objects.create(user_id =user_id, name=name, description=description, due_date=due_date)
                     to_base.save()

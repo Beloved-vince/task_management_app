@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Task
-from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from .serializers import TaskSerializer
 from django.http import HttpResponse
 from django.db import IntegrityError
 
@@ -17,27 +14,29 @@ def add_task(request):
             a redirection will occur to prompt the user to login"""
     from .forms import TaskForm
         # user = authenticate(username)
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            description = form.cleaned_data['description']
-            due_date = form.cleaned_data['due_date']
-            user_id = request.user.id
-            # if request.user.is_authenticated:
-            # name = request.POST.get('name')
-            # description = request.POST.get('description')
-            # due_date = request.POST.get('due_date')
-            # task = Task.objects.create(name=name, description=description, due_date=due_date)
-            try:
-                to_base = Task.objects.create(description=description, due_date=due_date)
-                to_base.save()
-                return  HttpResponse('user.html')
-            except IntegrityError:
-                return HttpResponse(F'USER ID NO {user_id}')
-        # return redirect('login-in')
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = TaskForm(request.POST)
+            if form.is_valid():
+                name = form.cleaned_data['name']
+                description = form.cleaned_data['description']
+                due_date = form.cleaned_data['due_date']
+                user_id = request.user.id
+                # if request.user.is_authenticated:
+                # name = request.POST.get('name')
+                # description = request.POST.get('description')
+                # due_date = request.POST.get('due_date')
+                # task = Task.objects.create(name=name, description=description, due_date=due_date)
+                try:
+                    to_base = Task.objects.create(user_id =user_id, name=name, description=description, due_date=due_date)
+                    to_base.save()
+                    return  redirect('add-task')
+                except IntegrityError:
+                    return HttpResponse(F'USER ID NO {user_id}')
+            # return redirect('login-in')
     
-    return render(request, 'user.html')
+        return render(request, 'user.html')
+    return HttpResponse("Not Authenticate")
 
 
 @api_view(['GET'])

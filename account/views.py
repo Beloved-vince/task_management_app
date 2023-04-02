@@ -51,7 +51,7 @@ def login_view(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
-            if user.is_authenticated:
+            if request.user.is_authenticated:
                 return redirect('add-task')
         except AttributeError:
             from django.contrib import messages

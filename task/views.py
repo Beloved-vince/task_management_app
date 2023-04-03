@@ -27,9 +27,7 @@ def add_task(request):
                     to_base.save()
                     return  redirect('add-task')
                 except IntegrityError:
-                    return HttpResponse(F'USER ID NO {user_id}')
-            # return redirect('login-in')
-    
+                    return HttpResponse(F'USER ID NO {user_id}')    
         return render(request, 'user.html')
     return HttpResponse("Not Authenticate")
 

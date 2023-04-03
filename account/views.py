@@ -28,6 +28,7 @@ def create_user(request):
                     user = User.objects.create_user(username, email, password)
                     user.save()
                     messages.success(request, 'Your account has been created')
+                    return redirect('add-task')
                 else:
                     messages.success(request, 'Your account has been created')
                     return HttpResponse("Not possible")
@@ -37,7 +38,7 @@ def create_user(request):
                 return HttpResponse(f'{e}')
 
             # any additional processing or redirecting you want to do
-        return render(request, 'user.html')
+        return render(request, 'base.html')
 
     return render(request, 'signup.html')
 
@@ -51,11 +52,13 @@ def login_view(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
-            if request.user.is_authenticated:
+            if user.is_authenticated:
                 return redirect('add-task')
+            else:
+                return HttpResponse("fuck")
         except AttributeError:
             from django.contrib import messages
-            messages.error(request, "Username or password is incorrect")
+            # messages.error(request, "Username or password is incorrect")
             # return redirect('sign-up')
 
     return render(request, 'login.html')

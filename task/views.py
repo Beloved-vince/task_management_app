@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse
 from django.db import IntegrityError
+from .forms import TaskForm
+
 
 # Create your views here.
 # @api_view(['GET', 'POST'])
@@ -12,8 +14,7 @@ def add_task(request):
     """Allow Authenticated user to add task.\
         if a non authenticated user want to add task,\
             a redirection will occur to prompt the user to login"""
-    from .forms import TaskForm
-        # user = authenticate(username)
+
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = TaskForm(request.POST)

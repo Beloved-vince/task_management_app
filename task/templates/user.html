@@ -20,9 +20,11 @@
 		<div id="sidebar">
 			<h2>Projects</h2>
 			<ul>
-				<li><a href="#">Project A</a></li>
-				<li><a href="#">Project B</a></li>
-				<li><a href="#">Project C</a></li>
+				{% for project in Tasks %}
+				<li><a href="#">{{project.name}} A</a></li>
+				{% empty %}
+				<li><a href="">No available project</a></li>
+				{% endfor %}
 				<li><a href="#">Add Project</a></li>
 			</ul>
 			<h2>Insights</h2>

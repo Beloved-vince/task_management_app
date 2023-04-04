@@ -23,23 +23,20 @@ def create_user(request):
             domain = email.split('@')[1]
             try:
                 mx_records = dns.resolver.query(domain, 'MX')
-                mx_record = str(mx_records[0].exchange)
-                if 'google' in mx_record:
+                mx_record = str(mx_records[0].exchange)[:1]
+                if mx_record:
                     user = User.objects.create_user(username, email, password)
                     user.save()
                     messages.success(request, 'Your account has been created')
                     return redirect('add-task')
                 else:
-                    messages.success(request, 'Your account has been created')
-                    return HttpResponse("Not possible")
-                return redirect('base.html')
+                    messages.error(request, 'Your email entered is incorrect')
+                    return HttpResponse("email entered is incorrect")
             except Exception as e:
                 messages.error(request, f'try again   : {e}')
                 return HttpResponse(f'{e}')
 
-            # any additional processing or redirecting you want to do
-        return render(request, 'base.html')
-
+    # any additional processing or redirecting you want to do
     return render(request, 'signup.html')
 
 def login_view(request):

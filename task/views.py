@@ -14,7 +14,7 @@ def add_task(request):
     """Allow Authenticated user to add task.\
         if a non authenticated user want to add task,\
             a redirection will occur to prompt the user to login"""
-
+    Tasks = Task.objects.all()
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = TaskForm(request.POST)
@@ -30,7 +30,7 @@ def add_task(request):
                 except IntegrityError:
                     return HttpResponse(F'USER ID NO {user_id}')    
         return render(request, 'user.html')
-    return HttpResponse("Not Authenticate")
+    return redirect("login-in")
 
 
 @api_view(['GET'])

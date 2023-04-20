@@ -19,9 +19,9 @@
 	<main>
 		<div id="sidebar">
 			<h2>Projects</h2>
-			<ul>
-				{% for project in Tasks %}
-				<li><a href="#">{{project.name}} A</a></li>
+			<ul>{% csrf_token %}
+				{% for task in tasks %}
+				<li><a href="#">{{ task.name }} </a></li>
 				{% empty %}
 				<li><a href="">No available project</a></li>
 				{% endfor %}

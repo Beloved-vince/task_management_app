@@ -28,7 +28,7 @@ def create_user(request):
                     user = User.objects.create_user(username, email, password)
                     user.save()
                     messages.success(request, 'Your account has been created')
-                    return redirect('add-task')
+                    return redirect('login-in')
                 else:
                     messages.error(request, 'Your email entered is incorrect')
                     return HttpResponse("email entered is incorrect")
@@ -42,20 +42,21 @@ def create_user(request):
 def login_view(request):
     """Login view check if input data is authenticated,\
         allow login if true else do nothing"""
-    from django.contrib.auth.models import User
-    from django.contrib.auth import authenticate
+    from django.contrib.auth import authenticate, login
+    
     if request.method == 'POST':
         try:
             username = request.POST['username']
             password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            if user.is_authenticated:
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
                 return redirect('add-task')
             else:
-                return HttpResponse("fuck")
+                messages.success(request, 'Your account has been created')
         except AttributeError:
             from django.contrib import messages
-            # messages.error(request, "Username or password is incorrect")
+            messages.error(request, "Username or password is incorrect")
             # return redirect('sign-up')
 
     return render(request, 'login.html')

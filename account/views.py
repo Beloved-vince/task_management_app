@@ -41,9 +41,10 @@ def create_user(request):
 
 def login_view(request):
     """Login view check if input data is authenticated,\
-        allow login if true else do nothing"""
+        allow login if true else do nothing
+    """
     from django.contrib.auth import authenticate, login
-    
+
     if request.method == 'POST':
         try:
             username = request.POST['username']
@@ -53,7 +54,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('add-task')
             else:
-                messages.success(request, 'Your account has been created')
+                messages.error(request, 'wrong username or password')
         except AttributeError:
             from django.contrib import messages
             messages.error(request, "Username or password is incorrect")

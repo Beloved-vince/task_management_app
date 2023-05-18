@@ -6,16 +6,19 @@ from django.http import HttpResponse
 from django.db import IntegrityError
 from .forms import TaskForm
 
+
 # Create your views here.
 @api_view(['GET', 'POST', 'PUT'])
 @permission_classes([IsAuthenticated])
 def add_task(request):
-    """Allow Authenticated user to add task.\
+    """
+        Allow Authenticated user to add task.\
         if a non authenticated user want to add task,\
-            a redirection will occur to prompt the user to login"""
+            a redirection will occur to prompt the user to login
+    """
     user_id = request.user.id
     task = Task.objects.filter(user=request.user.id)
-    
+
     # if request.user.is_authenticated:
     if request.method == 'POST':
         form = TaskForm(request.POST)

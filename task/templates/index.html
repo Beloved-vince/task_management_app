@@ -20,7 +20,7 @@
             <div id="errorMsg"></div>
             <div class="content">
                 <form class="login" name="loginForm" id="login_form" method="POST" action="">
-					{% csrf_token %}
+					        {% csrf_token %}
                     <input type="text" name="username" id="logName" placeholder="Username" required="">
                     <input type="password" onsubmit="return loginUser()" name="password" id="logPassword" placeholder="Password" required="">
                     <div id="check">

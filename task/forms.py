@@ -11,4 +11,4 @@ class TaskForm(forms.ModelForm):
     class Meta:
         """return username email and password to view"""
         model = Task
-        fields = ['name', 'description', 'due_date']
+        fields = ['title', 'description', 'status']

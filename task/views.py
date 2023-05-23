@@ -23,17 +23,15 @@ def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
+            title = form.cleaned_data['title']
             description = form.cleaned_data['description']
-            due_date = form.cleaned_data['due_date']
             try:
-                to_base = Task.objects.create(user=user_id, name=name, description=description, due_date=due_date)
+                to_base = Task.objects.create(user=user_id, title=title, description=description)
                 to_base.save()
-                return  redirect('add-task')
+                # return  redirect('add-task')
             except IntegrityError:
                 return HttpResponse(F'USER ID NO {user_id}')    
-    return render(request, 'user.html', {'tasks': task})
-
+    return render(request, 'notes_dashboard.html', {'tasks': task})
 
 @api_view(['GET'])
 def home(request):

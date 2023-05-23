@@ -19,13 +19,7 @@ class Task(models.Model):
         completed_date: date task is completed by the assignee(to be added later)
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     description = models.TextField()
     status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateField()
-    completed_date = models.DateTimeField(auto_now_add=True)
-
-
-    

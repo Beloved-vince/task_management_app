@@ -29,7 +29,7 @@
 
         <!--- LOG OUT BUTTON STARTS --->
         <li class="nav-item">
-            <a href="index.html" style="text-decoration:none;" onMouseOver="this.style.color='#E32636'" onMouseOut="this.style.color='red'"> <i class="icon-tag mr-1"></i><span class="d-none d-md-block" style = "margin-bottom: 25px; margin-right: 20px; margin-left: 15px;" id = "logout">Sign Out</span></a>
+            <a href="{% url 'logout' %}" style="text-decoration:none;" onMouseOver="this.style.color='#E32636'" onMouseOut="this.style.color='red'"> <i class="icon-tag mr-1"></i><span class="d-none d-md-block" style = "margin-bottom: 25px; margin-right: 20px; margin-left: 15px;" id = "logout">Sign Out</span></a>
         </li>
         <!--- LOG OUT BUTTON ENDS --->
 
@@ -103,8 +103,6 @@
 
 
     <!-- Modal Add notes -->
-    <form action="" method="POST" id="task_form">
-        {% csrf_token %}
     <div class="modal fade" id="addnotesmodal" tabindex="-1" role="dialog" aria-labelledby="addnotesmodalTitle" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-0">
@@ -117,7 +115,7 @@
                 <div class="modal-body">
                     <div class="notes-box">
                         <div class="notes-content">
-                            <form action="javascript:void(0);" id="addnotesmodalTitle">
+                            <form action="" id="addnotesmodalTitle">
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <div class="note-title">
@@ -447,29 +445,24 @@ function submitHandler(){
 
     title = document.getElementById('note-has-title').value
     description = getElementById('note-has-description').value
-    if (title == "" || description === ""){
-        document.getElementById('errorMsg').innerHTML = "Title or Description cannot be void"
-        return false;
-    }
-    else{
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-        fetch('{% url "add-task" %}', {
-            method: 'POST',
-            body: formData
-        })
-        .then(data => {
-            alert('done')
-        })
-        .catch(error => {
-            alert("username has been taken")
-        });
-        return true;
-    }
+    fetch('{% url "add-task" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(data => {
+        alert('done')
+    })
+    .catch(error => {
+        alert("username has been taken")
+    });
+    return true;
 }
+
 </script>
 </body>
 </html>

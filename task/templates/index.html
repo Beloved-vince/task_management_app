@@ -29,7 +29,7 @@
                     </div>
                     <br><br>
                     <input type="submit" value="Log In">
-                    <a href="forgot_password.html" style = "color: #707070;">Forgot Password?</a>
+                    <a href="{% url 'forgot-password' %}" style = "color: #707070;">Forgot Password?</a>
                 </form>
                 <form class="signup" name="signupForm" id="signup_form" action=""  method="POST">
                     {% csrf_token %}

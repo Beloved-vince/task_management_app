@@ -6,8 +6,8 @@ from django.http import HttpResponse, JsonResponse
 from .forms import UserForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import authenticate, login
-
+from django.contrib.auth import authenticate, login, logout
+from rest_framework.decorators import api_view
 
 def create_user(request):
     """This function call allow user to create account and authenticated\
@@ -54,3 +54,15 @@ def login_view(request):
             return HttpResponse(A)
 
     return render(request, 'index.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login-in')
+
+@api_view(['GET'])
+def reset_pass(request):
+    return render(request, 'forgot_password.html')
+
+def get_link(request):
+    return render(request, 'confirm.html')

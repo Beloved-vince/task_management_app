@@ -26,12 +26,19 @@ def add_task(request):
             title = form.cleaned_data['title']
             description = form.cleaned_data['description']
             try:
-                to_base = Task.objects.create(user=user_id, title=title, description=description)
+                to_base = Task.objects.create(user_id=user_id, title=title, description=description)
                 to_base.save()
                 # return  redirect('add-task')
             except IntegrityError:
                 return HttpResponse(F'USER ID NO {user_id}')    
     return render(request, 'notes_dashboard.html', {'tasks': task})
+
+
+
+@api_view(['GET', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_task(request):
+    pass
 
 @api_view(['GET'])
 def home(request):

@@ -33,7 +33,7 @@ def create_user(request):
             except Exception as e:
                 messages.error('message', e)
 # any additional processing or redirecting
-    return render(request, 'index.html')
+    return render(request, 'signup.html')
 
 def login_view(request):
     """Login view check if input data is authenticated,\
@@ -48,7 +48,7 @@ def login_view(request):
             print (username + password)
             if user is not None:
                 login(request, user)
-                return render(request, 'notes_dashboard.html')
+                return redirect( 'add-task')
             messages.error(request, 'username or password is incore')
         except AttributeError as A:
             return HttpResponse(A)
@@ -60,8 +60,23 @@ def logout_view(request):
     logout(request)
     return redirect('login-in')
 
-@api_view(['GET'])
+@api_view(['POST', 'GET'])
 def reset_pass(request):
+    # Check if the request method is POST
+    if request.method == 'POST':
+        # Get the email from the POST request
+        email = request.data.get('email')  # Assumes you are using DRF's request object
+
+        # Check if the email exists in the User table
+        try:
+            exists = User.objects.filter(email=email).exists()
+            if exists:
+                return redirect('get-link')  # Replace 'get-link' with the appropriate URL name
+            else:
+                messages.error(request, 'Email does not exist')  # Display an error message
+        except User.DoesNotExist:
+            messages.error(request, 'Error occurred')  # Display a general error message
+
     return render(request, 'forgot_password.html')
 
 def get_link(request):

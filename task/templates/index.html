@@ -11,7 +11,7 @@
 <body>
     <div class="box">
 
-        <img src="icon.png">
+        <img src="{% static 'img/icon.png' %}">
         <div class="page">
             <div class="header">
                 <a id="login" class="active" href="#login">log in</a>
@@ -31,7 +31,7 @@
                     <input type="submit" value="Log In">
                     <a href="{% url 'forgot-password' %}" style = "color: #707070;">Forgot Password?</a>
                 </form>
-                <form class="signup" name="signupForm" id="signup_form" action=""  method="POST">
+                <form class="signup" namne="signupForm" id="sigup_form" action=""  method="POST">
                     {% csrf_token %}
                     <input type="email" name="email" id="signEmail" placeholder="Email">
                     <input type="text" name="name" id="signName" placeholder="Username">

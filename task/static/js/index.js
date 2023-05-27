@@ -11,8 +11,6 @@
 // });
 // $(window).trigger("hashchange");
 
-
-
 	function validatePassword() {
 		var password = document.getElementById("ver_pass").value;
 	

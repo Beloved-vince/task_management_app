@@ -30,15 +30,21 @@ def add_task(request):
                 to_base.save()
                 # return  redirect('add-task')
             except IntegrityError:
-                return HttpResponse(F'USER ID NO {user_id}')    
+                return HttpResponse(F'USER ID NO {user_id}')
     return render(request, 'notes_dashboard.html', {'tasks': task})
 
 
 
-@api_view(['GET', 'DELETE'])
+@api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
-def delete_task(request):
-    pass
+def delete_task(request, pk):
+    from django.http import HttpResponse
+    try:
+        task = get_object_or_404(Task, id=pk, user=request.user)
+        task.delete()
+    except Exception as e:
+        print(e)
+    return HttpResponse(status=204)
 
 @api_view(['GET'])
 def home(request):
